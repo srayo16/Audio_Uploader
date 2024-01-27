@@ -26,12 +26,12 @@ exports.createAudio = async (req, res) => {
         const uploadToCloudinary = await uploader(pathName)
         // console.log("upload",uploadToCloudinary)
 
-        if(uploadToCloudinary && uploadToCloudinary?.url && uploadToCloudinary?.id){
+        if (uploadToCloudinary && uploadToCloudinary?.url && uploadToCloudinary?.id) {
             const audio = new Audio({
                 audio: uploadToCloudinary?.url,
                 cloudinary_ID: uploadToCloudinary?.id
             });
-    
+
             await audio.save();
             fs.unlinkSync(pathName);
             return res.status(200).send('Audio uploaded successfully!');
@@ -53,7 +53,7 @@ exports.getAllAudios = async (req, res) => {
             return res.status(404).send('Audio not found');
         }
 
-        res.json({ message: "Data Found!", data: audio });
+        return res.json({ message: "Data Found!", data: audio });
 
     } catch (error) {
         console.error(error?.message);
